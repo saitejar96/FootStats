@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity
     public String s3 = "";
     public String p1 = "";
     public String p2 = "";
-
+    public int current_id = R.id.nav_camera;
+    public int previous_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         }
         if (!viewIsAtHome) { //if the current view is not the News fragment
-            displayView(R.id.nav_camera); //display the News fragment
+            displayView(previous_id); //display the News fragment
         } else {
             moveTaskToBack(true);  //If view is in News fragment, exit application
         }
@@ -105,6 +106,8 @@ public class MainActivity extends AppCompatActivity
 
         Fragment fragment = null;
         String title = getString(R.string.app_name);
+        previous_id = current_id;
+        current_id = viewId;
 
         switch (viewId) {
             case R.id.nav_camera:
