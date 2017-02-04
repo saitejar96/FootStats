@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity
     public String s1 = "";
     public String s2 = "";
     public String s3 = "";
+    public int view_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
