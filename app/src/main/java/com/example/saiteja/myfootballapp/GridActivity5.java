@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +34,12 @@ public class GridActivity5 extends ArrayAdapter {
         this.context = context;
         this.data = data;
         this.nogw = nogw;
+    }
+
+    public static BigDecimal round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd;
     }
 
 
@@ -129,13 +136,13 @@ public class GridActivity5 extends ArrayAdapter {
                 else
                     holder.t7.setBackgroundColor(Color.parseColor("#FFEE58"));
 
-                holder.t8.setText(""+Math.round(item.getInt("total_points")/Float.parseFloat(item.getString("points_per_game"))/nogw));
+                holder.t8.setText(""+round(Math.round(item.getInt("total_points")/Float.parseFloat(item.getString("points_per_game")))/(float)nogw,2));
 
                 System.out.println(Math.round(item.getInt("total_points")/Float.parseFloat(item.getString("points_per_game")))+"");
                 System.out.println(Math.round(((JSONObject)data.get(2)).getInt("total_points")/Float.parseFloat(((JSONObject)data.get(2)).getString("points_per_game")))+"");
-                if(Math.round(item.getInt("total_points")/Float.parseFloat(item.getString("points_per_game")))>Math.round(((JSONObject)data.get(2)).getInt("total_points")/Float.parseFloat(((JSONObject)data.get(2)).getString("points_per_game"))))
+                if(item.getInt("total_points")/Float.parseFloat(item.getString("points_per_game"))>((JSONObject)data.get(2)).getInt("total_points")/Float.parseFloat(((JSONObject)data.get(2)).getString("points_per_game")))
                     holder.t8.setBackgroundColor(Color.parseColor("#69F0AE"));
-                else if(Math.round(item.getInt("total_points")/Float.parseFloat(item.getString("points_per_game")))<Math.round(((JSONObject)data.get(2)).getInt("total_points")/Float.parseFloat(((JSONObject)data.get(2)).getString("points_per_game"))))
+                else if(item.getInt("total_points")/Float.parseFloat(item.getString("points_per_game"))<((JSONObject)data.get(2)).getInt("total_points")/Float.parseFloat(((JSONObject)data.get(2)).getString("points_per_game")))
                     holder.t8.setBackgroundColor(Color.parseColor("#F44336"));
                 else
                     holder.t8.setBackgroundColor(Color.parseColor("#FFEE58"));
@@ -203,12 +210,12 @@ public class GridActivity5 extends ArrayAdapter {
                 else
                     holder.t7.setBackgroundColor(Color.parseColor("#FFEE58"));
 
-                holder.t8.setText(""+Math.round(item.getInt("total_points")/Float.parseFloat(item.getString("points_per_game"))/nogw));
+                holder.t8.setText(""+round(Math.round(item.getInt("total_points")/Float.parseFloat(item.getString("points_per_game")))/(float)nogw,2));
                 System.out.println(Math.round(item.getInt("total_points")/Float.parseFloat(item.getString("points_per_game")))+"");
                 System.out.println(Math.round(((JSONObject)data.get(0)).getInt("total_points")/Float.parseFloat(((JSONObject)data.get(0)).getString("points_per_game")))+"");
-                if(Math.round(item.getInt("total_points")/Float.parseFloat(item.getString("points_per_game")))>Math.round(((JSONObject)data.get(0)).getInt("total_points")/Float.parseFloat(((JSONObject)data.get(0)).getString("points_per_game"))))
+                if(item.getInt("total_points")/Float.parseFloat(item.getString("points_per_game"))>((JSONObject)data.get(0)).getInt("total_points")/Float.parseFloat(((JSONObject)data.get(0)).getString("points_per_game")))
                     holder.t8.setBackgroundColor(Color.parseColor("#69F0AE"));
-                else if(Math.round(item.getInt("total_points")/Float.parseFloat(item.getString("points_per_game")))<Math.round(((JSONObject)data.get(0)).getInt("total_points")/Float.parseFloat(((JSONObject)data.get(0)).getString("points_per_game"))))
+                else if(item.getInt("total_points")/Float.parseFloat(item.getString("points_per_game"))<((JSONObject)data.get(0)).getInt("total_points")/Float.parseFloat(((JSONObject)data.get(0)).getString("points_per_game")))
                     holder.t8.setBackgroundColor(Color.parseColor("#F44336"));
                 else
                     holder.t8.setBackgroundColor(Color.parseColor("#FFEE58"));

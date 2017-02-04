@@ -118,7 +118,7 @@ public class CPFragment extends Fragment {
                     JSONObject p1 = null;
                     JSONObject p2 = null;
                     for(int i=0;i<elements.length();i+=1){
-                        if((elements.getJSONObject(i).getString("web_name")).equals(mParam1)){
+                        if((elements.getJSONObject(i).getString("web_name")+"("+elements.getJSONObject(i).getString("first_name")+")").equals(mParam1)){
                             p1 = elements.getJSONObject(i);
                             comparingPlayers.add(p1);
                             if(comparingPlayers.size()==1)
@@ -126,7 +126,7 @@ public class CPFragment extends Fragment {
                             if(comparingPlayers.size()==3)
                                 break;
                         }
-                        else if((elements.getJSONObject(i).getString("web_name")).equals(mParam2)){
+                        else if((elements.getJSONObject(i).getString("web_name")+"("+elements.getJSONObject(i).getString("first_name")+")").equals(mParam2)){
                             p2 = elements.getJSONObject(i);
                             comparingPlayers.add(p2);
                             if(comparingPlayers.size()==1)

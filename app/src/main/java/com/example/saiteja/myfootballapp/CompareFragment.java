@@ -62,6 +62,7 @@ public class CompareFragment extends Fragment implements AdapterView.OnItemClick
 
     ArrayAdapter<String> adapter;
     ArrayList<String> products = new  ArrayList<String>();
+    ArrayList<String> fnames = new  ArrayList<String>();
     TextView tv1;
     TextView tv2;
     ArrayList<String> urls = new  ArrayList<String>();
@@ -156,7 +157,8 @@ public class CompareFragment extends Fragment implements AdapterView.OnItemClick
                     events = json.getJSONArray("events");
                     for(int i=0;i<elements.length();i+=1){
                         jsonObjects.add(elements.getJSONObject(i));
-                        products.add(elements.getJSONObject(i).getString("web_name"));
+                        products.add(elements.getJSONObject(i).getString("web_name")+"("+elements.getJSONObject(i).getString("first_name")+")");
+                        fnames.add(elements.getJSONObject(i).getString("first_name"));
                         points.add(elements.getJSONObject(i).getString("event_points")+"");
                         urls.add("https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p"+elements.getJSONObject(i).getString("photo").substring(0,elements.getJSONObject(i).getString("photo").length()-4)+".png");
                     }
