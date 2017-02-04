@@ -2,25 +2,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.saiteja.myfootballapp.CompareFragment">
+    tools:context="com.example.saiteja.myfootballapp.CompareFragment"
+    android:onClick="onClickCompare">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Compare Players"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:textColor="@color/colorPrimary"/>
+        android:text="Compare"
+        android:textColor="@color/colorAccent"
+        android:background="@color/colorPrimaryDark"
+        android:id="@+id/cmpbutton"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
+        android:id="@+id/tv1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Player 1 :"
         />
     <TextView
+        android:id="@+id/tv2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"

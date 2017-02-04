@@ -1,42 +1,24 @@
 package com.example.saiteja.myfootballapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.GridView;
+import android.widget.ProgressBar;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -44,12 +26,12 @@ import cz.msebera.android.httpclient.Header;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CompareFragment.OnFragmentInteractionListener} interface
+ * {@link CPFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CompareFragment#newInstance} factory method to
+ * Use the {@link CPFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CompareFragment extends Fragment implements AdapterView.OnItemClickListener{
+public class CPFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -58,24 +40,12 @@ public class CompareFragment extends Fragment implements AdapterView.OnItemClick
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    String p = "Select a player";
-
-    ArrayAdapter<String> adapter;
-    ArrayList<String> products = new  ArrayList<String>();
-    TextView tv1;
-    TextView tv2;
-    ArrayList<String> urls = new  ArrayList<String>();
-    ArrayList<String> points = new  ArrayList<String>();
-    ArrayList<JSONObject> jsonObjects = new ArrayList<>();
-    Intent intent;
+    ArrayList<JSONObject> comparingPlayers = new ArrayList<JSONObject>();
+    private ProgressBar spinner;
 
     private OnFragmentInteractionListener mListener;
 
-    EditText inputSearch;
-    Button compare;
-    private ListView lv;
-
-    public CompareFragment() {
+    public CPFragment() {
         // Required empty public constructor
     }
 
@@ -85,11 +55,11 @@ public class CompareFragment extends Fragment implements AdapterView.OnItemClick
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CompareFragment.
+     * @return A new instance of fragment CPFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CompareFragment newInstance(String param1, String param2) {
-        CompareFragment fragment = new CompareFragment();
+    public static CPFragment newInstance(String param1, String param2) {
+        CPFragment fragment = new CPFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -110,26 +80,16 @@ public class CompareFragment extends Fragment implements AdapterView.OnItemClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_compare, container, false);
+        View v =  inflater.inflate(R.layout.fragment_cp, container, false);
         final View mView = v;
-        compare = (Button)mView.findViewById(R.id.cmpbutton);
-        compare.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(getActivity().getBaseContext(),MainActivity.class);
-                intent.putExtra("player1",tv1.getText().toString());
-                intent.putExtra("player2",tv2.getText().toString());
-                intent.putExtra("flag",1);
-                getActivity().startActivity(intent);
-            }
-        });
         AsyncHttpClient client = new AsyncHttpClient();
+        spinner=(ProgressBar)mView.findViewById(R.id.progressBarC);
+        spinner.setVisibility(View.VISIBLE);
         client.get("https://fantasy.premierleague.com/drf/bootstrap-static", new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 // called when response HTTP status is "200 OK"
+                System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
                 String str = "";
                 JSONObject json;
                 JSONArray phases;
@@ -137,6 +97,7 @@ public class CompareFragment extends Fragment implements AdapterView.OnItemClick
                 JSONArray teams;
                 JSONArray element_types;
                 JSONArray events;
+                int nogw=0;
                 ArrayList<Integer> teamBool = new ArrayList<Integer>();
                 for (int i = 0; i < 21; i += 1) {
                     teamBool.add(0);
@@ -154,15 +115,44 @@ public class CompareFragment extends Fragment implements AdapterView.OnItemClick
                     teams = json.getJSONArray("teams");
                     element_types = json.getJSONArray("element_types");
                     events = json.getJSONArray("events");
+                    JSONObject p1 = null;
+                    JSONObject p2 = null;
                     for(int i=0;i<elements.length();i+=1){
-                        jsonObjects.add(elements.getJSONObject(i));
-                        products.add(elements.getJSONObject(i).getString("web_name"));
-                        points.add(elements.getJSONObject(i).getString("event_points")+"");
-                        urls.add("https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p"+elements.getJSONObject(i).getString("photo").substring(0,elements.getJSONObject(i).getString("photo").length()-4)+".png");
+                        if((elements.getJSONObject(i).getString("web_name")).equals(mParam1)){
+                            p1 = elements.getJSONObject(i);
+                            comparingPlayers.add(p1);
+                            if(comparingPlayers.size()==1)
+                                comparingPlayers.add(null);
+                            if(comparingPlayers.size()==3)
+                                break;
+                        }
+                        else if((elements.getJSONObject(i).getString("web_name")).equals(mParam2)){
+                            p2 = elements.getJSONObject(i);
+                            comparingPlayers.add(p2);
+                            if(comparingPlayers.size()==1)
+                                comparingPlayers.add(null);
+                            if(comparingPlayers.size()==3)
+                                break;
+                        }
                     }
+                    int exiter=0;
+                    for(int i=0;i<events.length();i++){
+                        if(events.getJSONObject(i).getInt("average_entry_score")==0) {
+                            exiter = i;
+                            break;
+                        }
+                    }
+                    nogw=exiter;
+
+                    System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+nogw);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                GridView gridView = (GridView) mView.findViewById(R.id.compareGrid);
+                GridActivity5 gridAdapter = new GridActivity5(getContext(), R.layout.compare_player, comparingPlayers,nogw);
+                gridView.setAdapter(gridAdapter);
+                spinner.setVisibility(View.GONE);
             }
 
             @Override
@@ -180,36 +170,7 @@ public class CompareFragment extends Fragment implements AdapterView.OnItemClick
                 super.onStart();
             }
         });
-
-        lv = (ListView) mView.findViewById(R.id.list_view);
-        inputSearch = (EditText) mView.findViewById(R.id.inputSearch1);
-        tv1 = (TextView) mView.findViewById(R.id.tv1);
-        tv2 = (TextView) mView.findViewById(R.id.tv2);
-
-        adapter = new ArrayAdapter<String>(getContext(), R.layout.list_item, R.id.player_name, products);
-        lv.setAdapter(adapter);
-        inputSearch.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-                // When user changed the Text
-                CompareFragment.this.adapter.getFilter().filter(cs);
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-                                          int arg3) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable arg0) {
-                // TODO Auto-generated method stub
-            }
-        });
-        lv.setOnItemClickListener(this);
-        return v;
+        return mView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -233,18 +194,9 @@ public class CompareFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onDetach() {
         super.onDetach();
-        getActivity().startActivity(intent);
         mListener = null;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        TextView t = (TextView) view.findViewById(R.id.player_name) ;
-        p = t.getText().toString();
-        System.out.println(p);
-        if(!tv1.getText().toString().contentEquals("Player 1 :"))   tv2.setText(p);
-        else    tv1.setText(p);
-    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

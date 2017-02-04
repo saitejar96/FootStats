@@ -1,5 +1,6 @@
 package com.example.saiteja.myfootballapp;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,12 +21,14 @@ import android.widget.TextView;
 import static com.example.saiteja.myfootballapp.IndiFixtureFragment.newInstance;
 
 public class MainActivity extends AppCompatActivity
-        implements CompareFragment.OnFragmentInteractionListener,FriendsFragment.OnFragmentInteractionListener,GPFragment.OnFragmentInteractionListener,ProfileFragment.OnFragmentInteractionListener,LoginFragment.OnFragmentInteractionListener,PoolFragment.OnFragmentInteractionListener,IndiPosFragment.OnFragmentInteractionListener,IndiFixtureFragment.OnFragmentInteractionListener,FixtureFragment.OnFragmentInteractionListener,DreamTeamFragment.OnFragmentInteractionListener,StatsFragment.OnFragmentInteractionListener, TeamFragment.OnFragmentInteractionListener,NavigationView.OnNavigationItemSelectedListener {
+        implements CPFragment.OnFragmentInteractionListener,CompareFragment.OnFragmentInteractionListener,FriendsFragment.OnFragmentInteractionListener,GPFragment.OnFragmentInteractionListener,ProfileFragment.OnFragmentInteractionListener,LoginFragment.OnFragmentInteractionListener,PoolFragment.OnFragmentInteractionListener,IndiPosFragment.OnFragmentInteractionListener,IndiFixtureFragment.OnFragmentInteractionListener,FixtureFragment.OnFragmentInteractionListener,DreamTeamFragment.OnFragmentInteractionListener,StatsFragment.OnFragmentInteractionListener, TeamFragment.OnFragmentInteractionListener,NavigationView.OnNavigationItemSelectedListener {
 
     private boolean viewIsAtHome;
     public String s1 = "";
     public String s2 = "";
     public String s3 = "";
+    public String p1 = "";
+    public String p2 = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        displayView(R.id.nav_camera);
+        Intent intent = getIntent();
+        p1 = intent.getStringExtra("player1");
+        p2 = intent.getStringExtra("player2");
+        int x = intent.getIntExtra("flag",0);
+        if(x==0)
+            displayView(R.id.nav_camera);
+        else
+            displayView(12);
     }
 
     @Override
@@ -75,6 +85,7 @@ public class MainActivity extends AppCompatActivity
         s3 = ((TextView)v).getText().toString();
         displayView(11);
     }
+
 //
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
@@ -129,6 +140,11 @@ public class MainActivity extends AppCompatActivity
             case 11:
                 fragment = IndiPosFragment.newInstance(s3);
                 title = "Top "+s3;
+                viewIsAtHome = false;
+                break;
+            case 12:
+                fragment = CPFragment.newInstance(p1,p2);
+                title = p1+" VS "+p2;
                 viewIsAtHome = false;
                 break;
         }
