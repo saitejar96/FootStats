@@ -1,0 +1,74 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.saiteja.myfootballapp.FixtureFragment">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:background="@color/colorAccent"
+        tools:context="com.example.saiteja.myfootballstuff.MainActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll1"
+            android:gravity="center_horizontal"
+            android:background="@color/colorAccent"
+            android:padding="8dp"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/premlogo"
+                android:layout_marginRight="7dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_json"
+                android:gravity="center"
+                android:text="Upcoming Fixtures"
+                android:fontFamily="sans-serif"
+                android:textSize="21sp"
+                android:textStyle="normal|bold" />
+        </LinearLayout>
+
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/gridView"
+            android:layout_below="@+id/ll1"
+            android:isScrollContainer="true"
+            android:numColumns="1"
+            android:layout_margin="5dp"
+            android:columnWidth="100dp"
+            android:drawSelectorOnTop="true"
+            android:gravity="center"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="5dp"
+            android:focusable="true"
+            android:clickable="true"
+            android:background="@android:color/white"/>
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@color/colorPrimary"/>
+
+    </RelativeLayout>
+
+</FrameLayout>

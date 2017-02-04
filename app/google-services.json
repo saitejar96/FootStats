@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "249210817907",
+    "firebase_url": "https://myfootballapp-6fed1.firebaseio.com",
+    "project_id": "myfootballapp-6fed1",
+    "storage_bucket": "myfootballapp-6fed1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249210817907:android:c6aab0c7f32e6b19",
+        "android_client_info": {
+          "package_name": "com.example.saiteja.myfootballapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "249210817907-urk6cgsuep3a1e64881fn05fqtsbl87u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.saiteja.myfootballapp",
+            "certificate_hash": "A1FB77872651E7E22E9398094227F0A6F6CE6E68"
+          }
+        },
+        {
+          "client_id": "249210817907-kpclibqeb38rgkcgibreigu5rtlj7smn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9SIorbRbOPdQnrfzY6vi4W1y2Q3mPon8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "249210817907-kpclibqeb38rgkcgibreigu5rtlj7smn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_format_list_numbered_black_24dp"
+            android:title="Fixtures" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_group_black_24dp"
+            android:title="Predicted XV" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_grade_black_24dp"
+            android:title="Dream Team" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_poll_black_24px"
+            android:title="Positions" />
+        <item
+            android:id="@+id/nav_pool"
+            android:icon="@drawable/ic_leak_add_black_24dp"
+            android:title="Compare" />
+    </group>
+
+</menu>

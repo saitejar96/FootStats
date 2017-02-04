@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:onClick="onClickFixture">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="7dp"
+        android:weightSum="1"
+        android:layout_gravity="center_horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_height="match_parent"
+                android:id="@+id/homei"
+                android:layout_width="30dp" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/homet"
+                android:fontFamily="sans-serif"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#38003C"
+            android:text="VS"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:padding="7dp"
+            android:layout_weight="0.40"
+            android:layout_gravity="center_vertical|center_horizontal|center" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/awayt"
+                android:gravity="center"
+                android:fontFamily="sans-serif"
+                android:textSize="14sp"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="5dp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:id="@+id/awayi" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
