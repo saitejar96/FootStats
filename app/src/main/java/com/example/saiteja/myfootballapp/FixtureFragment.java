@@ -120,22 +120,25 @@ public class FixtureFragment extends Fragment {
                             teamBool.set(Integer.parseInt(t1_id), 1);
                             //System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
                             JSONArray opp = team.getJSONArray("next_event_fixture");
-                            //System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-                            String t2_id = opp.getJSONObject(0).getString("opponent");
-                            teamBool.set(Integer.parseInt(t2_id), 1);
-                            if(opp.getJSONObject(0).getBoolean("is_home")){
-                                f.setHomeT(team.getString("short_name"));
-                                f.setHomeI("https://platform-static-files.s3.amazonaws.com/premierleague/badges/t"+team.getString("code")+".png");
-                                f.setAwayT(teams.getJSONObject(Integer.parseInt(t2_id)-1).getString("short_name"));
-                                f.setAwayI("https://platform-static-files.s3.amazonaws.com/premierleague/badges/t"+teams.getJSONObject(Integer.parseInt(t2_id)-1).getString("code")+".png");
+                            if(opp.length()!=0){
+                                //opp = team.getJSONArray("current_event_fixture");
+                                System.out.println(opp);
+                                String t2_id = opp.getJSONObject(0).getString("opponent");
+                                teamBool.set(Integer.parseInt(t2_id), 1);
+                                if(opp.getJSONObject(0).getBoolean("is_home")){
+                                    f.setHomeT(team.getString("short_name"));
+                                    f.setHomeI("https://platform-static-files.s3.amazonaws.com/premierleague/badges/t"+team.getString("code")+".png");
+                                    f.setAwayT(teams.getJSONObject(Integer.parseInt(t2_id)-1).getString("short_name"));
+                                    f.setAwayI("https://platform-static-files.s3.amazonaws.com/premierleague/badges/t"+teams.getJSONObject(Integer.parseInt(t2_id)-1).getString("code")+".png");
+                                }
+                                else{
+                                    f.setAwayT(team.getString("short_name"));
+                                    f.setAwayI("https://platform-static-files.s3.amazonaws.com/premierleague/badges/t"+team.getString("code")+".png");
+                                    f.setHomeT(teams.getJSONObject(Integer.parseInt(t2_id)-1).getString("short_name"));
+                                    f.setHomeI("https://platform-static-files.s3.amazonaws.com/premierleague/badges/t"+teams.getJSONObject(Integer.parseInt(t2_id)-1).getString("code")+".png");
+                                }
+                                fixtureList.add(f);
                             }
-                            else{
-                                f.setAwayT(team.getString("short_name"));
-                                f.setAwayI("https://platform-static-files.s3.amazonaws.com/premierleague/badges/t"+team.getString("code")+".png");
-                                f.setHomeT(teams.getJSONObject(Integer.parseInt(t2_id)-1).getString("short_name"));
-                                f.setHomeI("https://platform-static-files.s3.amazonaws.com/premierleague/badges/t"+teams.getJSONObject(Integer.parseInt(t2_id)-1).getString("code")+".png");
-                            }
-                            fixtureList.add(f);
                         }
                     }
                     GridView gridView = (GridView) getView().findViewById(R.id.gridView);
