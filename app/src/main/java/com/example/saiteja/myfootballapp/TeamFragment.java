@@ -136,9 +136,9 @@ public class TeamFragment extends Fragment {
                         JSONObject e = elements.getJSONObject(i);
                         int x1 = 0;
                         int x2 = 0;
-
+                        System.out.println(e.getString("web_name"));
                         if(e.getString("news").length()==0) {
-                            if (e.getString("element_type") == "4") {
+                            if (e.getString("element_type").equals("4")) {
                                 b.setC_img("https://platform-static-files.s3.amazonaws.com/premierleague/badges/t" + elements.getJSONObject(i).getString("team_code") + ".png");
                                 b.setP_img("https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p" + elements.getJSONObject(i).getString("photo").substring(0, elements.getJSONObject(i).getString("photo").length() - 4) + ".png");
                                 b.setP_name(elements.getJSONObject(i).getString("web_name"));
@@ -157,7 +157,7 @@ public class TeamFragment extends Fragment {
                                 //System.out.println(x1+"     "+x2);
                                 forwards.add(b);
                             }
-                            else if (e.getString("element_type") == "3") {
+                            else if (e.getString("element_type").equals("3")) {
                                 b.setC_img("https://platform-static-files.s3.amazonaws.com/premierleague/badges/t" + elements.getJSONObject(i).getString("team_code") + ".png");
                                 b.setP_img("https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p" + elements.getJSONObject(i).getString("photo").substring(0, elements.getJSONObject(i).getString("photo").length() - 4) + ".png");
                                 b.setP_name(elements.getJSONObject(i).getString("web_name"));
@@ -175,7 +175,7 @@ public class TeamFragment extends Fragment {
                                 b.setP_oppW(x2+"");
                                 midfielders.add(b);
                             }
-                            else if (e.getString("element_type") == "2") {
+                            else if (e.getString("element_type").equals("2")) {
                                 b.setC_img("https://platform-static-files.s3.amazonaws.com/premierleague/badges/t" + elements.getJSONObject(i).getString("team_code") + ".png");
                                 b.setP_img("https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p" + elements.getJSONObject(i).getString("photo").substring(0, elements.getJSONObject(i).getString("photo").length() - 4) + ".png");
                                 b.setP_name(elements.getJSONObject(i).getString("web_name"));
@@ -193,7 +193,7 @@ public class TeamFragment extends Fragment {
                                 b.setP_oppW(x2+"");
                                 defenders.add(b);
                             }
-                            else if (e.getString("element_type") == "1") {
+                            else if (e.getString("element_type").equals("1")) {
                                 b.setC_img("https://platform-static-files.s3.amazonaws.com/premierleague/badges/t" + elements.getJSONObject(i).getString("team_code") + ".png");
                                 b.setP_img("https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p" + elements.getJSONObject(i).getString("photo").substring(0, elements.getJSONObject(i).getString("photo").length() - 4) + ".png");
                                 b.setP_name(elements.getJSONObject(i).getString("web_name"));
@@ -209,10 +209,12 @@ public class TeamFragment extends Fragment {
                                 }
                                 b.setP_teamW(x1+"");
                                 b.setP_oppW(x2+"");
+                                System.out.println(b.getP_name());
                                 goalkeepers.add(b);
                             }
                         }
                     }
+                    System.out.println(goalkeepers.size()+"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
                     System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
                     Collections.sort(goalkeepers);
                     Collections.sort(defenders);
