@@ -145,14 +145,14 @@ public class CPFragment extends Fragment {
                     nogw=exiter;
 
                     System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+nogw);
-
+                    spinner.setVisibility(View.GONE);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 GridView gridView = (GridView) mView.findViewById(R.id.compareGrid);
                 GridActivity5 gridAdapter = new GridActivity5(getContext(), R.layout.compare_player, comparingPlayers,nogw);
                 gridView.setAdapter(gridAdapter);
-                spinner.setVisibility(View.GONE);
+
             }
 
             @Override

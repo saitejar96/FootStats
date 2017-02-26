@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,7 +72,7 @@ public class CompareFragment extends Fragment implements AdapterView.OnItemClick
     Intent intent;
 
     private OnFragmentInteractionListener mListener;
-
+    private ProgressBar spinner;
     EditText inputSearch;
     Button compare;
     private ListView lv;
@@ -127,6 +128,8 @@ public class CompareFragment extends Fragment implements AdapterView.OnItemClick
             }
         });
         AsyncHttpClient client = new AsyncHttpClient();
+        spinner=(ProgressBar)mView.findViewById(R.id.progressBarD);
+        spinner.setVisibility(View.VISIBLE);
         client.get("https://fantasy.premierleague.com/drf/bootstrap-static", new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
@@ -162,6 +165,7 @@ public class CompareFragment extends Fragment implements AdapterView.OnItemClick
                         points.add(elements.getJSONObject(i).getString("event_points")+"");
                         urls.add("https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/110x140/p"+elements.getJSONObject(i).getString("photo").substring(0,elements.getJSONObject(i).getString("photo").length()-4)+".png");
                     }
+                    spinner.setVisibility(View.GONE);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

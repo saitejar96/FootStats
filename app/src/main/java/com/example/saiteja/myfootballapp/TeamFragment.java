@@ -202,7 +202,6 @@ public class TeamFragment extends Fragment {
                                         System.out.println("#########"+errorResponse.toString()+"##########");
                                     }
                                 } );
-                                //System.out.println(x1+"     "+x2);
                                 forwards.add(b);
                             }
                             else if (e.getString("element_type").equals("3")) {
@@ -296,9 +295,7 @@ public class TeamFragment extends Fragment {
                     GridActivity3 gridAdapter4 = new GridActivity3(getContext(), R.layout.must_have_layout, bestPlayers);
                     gridView4.setAdapter(gridAdapter4);
                     spinner.setVisibility(View.GONE);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (UnsupportedEncodingException e) {
+                } catch (JSONException | UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
 
