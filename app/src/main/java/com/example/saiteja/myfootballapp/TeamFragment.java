@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +24,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.ByteArrayEntity;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.protocol.HTTP;
 
 
 /**
@@ -136,6 +141,7 @@ public class TeamFragment extends Fragment {
                         JSONObject e = elements.getJSONObject(i);
                         int x1 = 0;
                         int x2 = 0;
+                        String wUrl = "https://ussouthcentral.services.azureml.net/workspaces/f72c8841eb144ce29adf73eadf159097/services/8ae5b00cd09e4828b2fd86eb3a51b347/execute?api-version=2.0&details=true";
                         System.out.println(e.getString("web_name"));
                         if(e.getString("news").length()==0) {
                             if (e.getString("element_type").equals("4")) {
@@ -154,6 +160,48 @@ public class TeamFragment extends Fragment {
                                 }
                                 b.setP_teamW(x1+"");
                                 b.setP_oppW(x2+"");
+                                AsyncHttpClient clientX = new AsyncHttpClient();
+                                RequestParams params = new RequestParams();
+                                float x_0 = Float.parseFloat(e.getString("ict_index"))/25;
+                                float f = x1/x2;
+                                float x_1 = f ;
+                                int x_2 = Math.round(Float.parseFloat(e.getString("selected_by_percent"))/100*4408355);
+                                String jx = "{\n" +
+                                        "  \"Inputs\": {\n" +
+                                        "    \"input1\": {\n" +
+                                        "      \"ColumnNames\": [\n" +
+                                        "        \"0\",\n" +
+                                        "        \"1\",\n" +
+                                        "        \"2\"\n" +
+                                        "      ],\n" +
+                                        "      \"Values\": [\n" +
+                                        "        [\n" +
+                                        "          \""+x_0+"\",\n" +
+                                        "          \""+x_1+"\",\n" +
+                                        "          \""+x_2+"\"\n" +
+                                        "        ]\n" +
+                                        "      ]\n" +
+                                        "    }\n" +
+                                        "  },\n" +
+                                        "  \"GlobalParameters\": {}\n" +
+                                        "}";
+                                JSONObject jsonObject = new JSONObject(jx);
+                                ByteArrayEntity entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
+                                entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+                                clientX.addHeader("Authorization","Bearer UywSeIkD0sXM+2NXBKWi46BEnTHF3ibtixnHHj2mLJriIT/1y7ugWzO0xplkTPLQacyLODfAKPZZ9WdpPUbEEA==");
+                                clientX.post(getContext(),wUrl,entity, "application/json", new JsonHttpResponseHandler(){
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, JSONObject obj) {
+                                        // called when response HTTP status is "200 OK"
+                                        System.out.println("rest"+obj+"##########");
+                                    }
+
+                                    @Override
+                                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                                        System.out.println("#########"+errorResponse.toString()+"##########");
+                                    }
+                                } );
                                 //System.out.println(x1+"     "+x2);
                                 forwards.add(b);
                             }
@@ -249,6 +297,8 @@ public class TeamFragment extends Fragment {
                     gridView4.setAdapter(gridAdapter4);
                     spinner.setVisibility(View.GONE);
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
 
