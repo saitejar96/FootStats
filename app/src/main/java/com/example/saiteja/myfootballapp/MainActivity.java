@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
     public String p2 = "";
     public int current_id = R.id.nav_camera;
     public int previous_id;
+    private boolean dumm =false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +80,14 @@ public class MainActivity extends AppCompatActivity
     public void onClickFixture(View v){
         s1 = ((TextView)v.findViewById(R.id.homet)).getText().toString();
         s2 = ((TextView)v.findViewById(R.id.awayt)).getText().toString();
-        displayView(10);
+        if(!dumm) {
+            displayView(10);
+            dumm=!dumm;
+        }
+        else {
+            displayView(10);
+            dumm=!dumm;
+        }
     }
 
     public void onClickPosition(View v){

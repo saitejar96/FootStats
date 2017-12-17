@@ -20,10 +20,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -121,7 +125,16 @@ public class IndiFixtureFragment extends Fragment {
                 }
                 //System.out.println(str);
                 try {
+                    Random ran = new Random();
+                    boolean dumm = true;
+                    int x = ran.nextInt(6) + 5;
+                    if(x<7.5)
+                        dumm=true;
+                    else
+                        dumm=false;
+
                     json = new JSONObject(str);
+
                     phases = json.getJSONArray("phases");
                     elements = json.getJSONArray("elements");
                     teams = json.getJSONArray("teams");

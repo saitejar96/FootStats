@@ -250,6 +250,8 @@ public class CompareFragment extends Fragment implements AdapterView.OnItemClick
         System.out.println(p);
         if(!tv1.getText().toString().contentEquals("Player 1 :"))   tv2.setText(p);
         else    tv1.setText(p);
+        inputSearch = (EditText) getView().findViewById(R.id.inputSearch1);
+        inputSearch.setText("");
     }
     /**
      * This interface must be implemented by activities that contain this
